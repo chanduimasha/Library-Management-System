@@ -28,6 +28,26 @@
   color: #61dafb;
 }
 
+.navbar-wrapper a {
+  color: white; /* Set text color */
+  text-decoration: none; /* Remove underline */
+  margin-left: 30px; /* Add spacing between links */
+  font-size: 16px; /* Adjust font size */
+  transition: color 0.3s ease; /* Add a smooth hover effect */
+}
+
+.navbar-wrapper a:hover {
+  color: #ffcc00; /* Change text color on hover */
+  text-decoration: none; /* Add underline on hover */
+}
+
+.navbar-wrapper a.active {
+  font-weight: bold; /* Highlight active link */
+  border-bottom: 2px solid #ffcc00; /* Add underline for active link */
+}
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
