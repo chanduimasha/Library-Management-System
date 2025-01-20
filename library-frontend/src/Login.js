@@ -1,20 +1,22 @@
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header";
+
 function Login() {
-    return (
-        <div>
-            <h1>Login</h1>
-            <form>
-                <label>
-                    Username:
-                    <input type="text" name="username" />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" name="password" />
-                </label>
-                <button type="submit">Login</button>
-            </form>
-        </div>
-    );
+  useEffect(() => {
+    if (localStorage.getItem("user-info")) {
+      navigate("/add");
+    }
+  }, []);
+
+  const navigate = useNavigate();
+
+  return (
+    <div>
+      <Header />
+      <h1>Login</h1>
+    </div>
+  );
 }
 
 export default Login;
