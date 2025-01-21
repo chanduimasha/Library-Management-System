@@ -15,8 +15,32 @@ class CategoryController extends Controller
         return $category;
     }
 
-    function list() {
+    function listCategories() {
         return Category::all();
+    }
+
+    function deleteCategory($id) {
+        $result = Category::where('id', $id)->deleteCategory();
+        if($result) {
+            return ["result" => "Category has been deleted"];
+        } else {
+            return ["result" => "Operation failed"];
+        }
+    }
+
+    function getCategory($id) {
+        return Category::find($id);
+    }
+
+    function updateCategory($id, Request $req) {
+        $category = Category::find($id);
+        $category->name = $req->input('name');
+        $category->save();
+        return $category;
+    }
+
+    function searchCategory($key) {
+        return Category::where('name', 'LIKE', "%$key%")->get();
     }
 
     // public function index()

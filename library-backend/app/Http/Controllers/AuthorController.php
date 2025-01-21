@@ -19,8 +19,8 @@ class AuthorController extends Controller
         return Author::all();
     }
 
-    function delete($id) {
-        $result = Author::where('id', $id)->delete();
+    function deleteAuthor($id) {
+        $result = Author::where('id', $id)->deleteAuthor();
         if($result) {
             return ["result" => "Author has been deleted"];
         } else {
@@ -39,7 +39,7 @@ class AuthorController extends Controller
         return $author;
     }
 
-    function search($key) {
+    function searchAuthor($key) {
         return Author::where('name', 'LIKE', "%$key%")->get();
     }
 

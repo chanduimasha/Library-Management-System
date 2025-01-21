@@ -4,17 +4,17 @@ import { Link } from "react-router-dom";
 import Header from "../Header";
 import "./Author.css";
 
-function Author() {
+function Category() {
   const [name, setName] = useState("");
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
-  async function addAuthor() {
+  async function addCategory() {
     const formData = new FormData();
     formData.append("name", name);
 
-    let result = await fetch("http://localhost:8000/api/addAuthor", {
+    let result = await fetch("http://localhost:8000/api/addCategory", {
       method: "POST",
       body: formData,
     });
@@ -23,25 +23,25 @@ function Author() {
 
   useEffect(() => {
     async function fetchData() {
-      let result = await fetch("http://localhost:8000/api/listAuthors");
+      let result = await fetch("http://localhost:8000/api/listCategories");
       result = await result.json();
       setData(result);
     }
     fetchData();
   }, []);
 
-  function deleteAction(author_id) {
-    setDeleteId(author_id);
+  function deleteAction(category_id) {
+    setDeleteId(category_id);
     setShow(true);
   }
 
   function handleDelete() {
     if (deleteId !== null) {
-      fetch("http://localhost:8000/api/deleteAuthor/" + deleteId, {
+      fetch("http://localhost:8000/api/deleteCategory/" + deleteId, {
         method: "DELETE",
       }).then((result) => {
         result = result.json();
-        const newData = data.filter((item) => item.author_id !== deleteId);
+        const newData = data.filter((item) => item.category_id !== deleteId);
         setData(newData);
         setShow(false); // Close the modal after deletion
       });
@@ -53,7 +53,7 @@ function Author() {
       <Header />
       <div className="container mt-5">
         <div className="card shadow-lg p-4 rounded">
-          <h2 className="text-center mb-4">Add New Author</h2>
+          <h2 className="text-center mb-4">Add New Category</h2>
           <div className="form-group">
             <label htmlFor="name" className="form-label">
               Name
@@ -67,14 +67,14 @@ function Author() {
             />
           </div>
           <button
-            onClick={addAuthor}
+            onClick={addCategory}
             className="btn btn-dark btn-lg btn-block mt-4"
           >
             Add Author
           </button>
         </div>
 
-        <h1 className="text-center text-dark mb-5 mt-5">Author List</h1>
+        <h1 className="text-center text-dark mb-5 mt-5">Category List</h1>
         <div className="col-sm-12">
           <Table striped bordered hover responsive className="shadow-lg">
             <thead className="thead-dark">
@@ -87,22 +87,22 @@ function Author() {
             </thead>
             <tbody>
               {data.map((item) => (
-                <tr key={item.author_id}>
-                  <td>{item.author_id}</td>
+                <tr key={item.category_id}>
+                  <td>{item.category_id}</td>
                   <td>{item.name}</td>
                   <td>
                     <Button
                       variant="danger"
                       size="sm"
                       style={{ padding: "5px 10px", fontSize: "15px" }}
-                      onClick={() => deleteAction(item.author_id)}
+                      onClick={() => deleteAction(item.category_id)}
                     >
                       Delete
                     </Button>
                   </td>
 
                   <td>
-                    <Link to={"/update/" + item.author_id}>
+                    <Link to={"/update/" + item.category_id}>
                       <Button
                         variant="warning"
                         size="sm"
@@ -138,4 +138,4 @@ function Author() {
   );
 }
 
-export default Author;
+export default Category;

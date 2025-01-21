@@ -9,11 +9,10 @@ import RecordList from "./RecordList";
 import SearchRecord from "./SearchRecord";
 
 import Author from "./components/Author";
+import Category from "./components/Category";
+import Books from "./components/Books";
 
 import React from "react";
-import BookList from "./components/BookList";
-import AddBook from "./components/AddBook";
-import EditBook from "./components/EditBook";
 
 function App() {
   return (
@@ -25,12 +24,9 @@ function App() {
           <Route path="/add" element={<Protected Cmp={AddRecord} />} />
 
           <Route path="/addAuthor" element={<Author />} />
+          <Route path="/addCategory" element={<Category />} />
+          <Route path="/addBooks" element={<Books />} />
 
-
-
-          <Route path="/books" element={<BookList />} />
-          <Route path="/books/add" element={<AddBook />} />
-          <Route path="/books/edit/:id" element={<EditBook />} />
           <Route
             path="/update/:id"
             element={<Protected Cmp={UpdateRecord} />}

@@ -39,12 +39,16 @@ Route::get('getAuthor/{id}', [AuthorController::class, 'getAuthor']);
 Route::post('updateAuthor/{id}', [AuthorController::class, 'updateAuthor']);
 Route::get('searchAuthor/{key}', [AuthorController::class, 'searchAuthor']);
 
-
-
-
-
-// Route::resource('books', BookController::class);
-// Route::resource('authors', AuthorController::class);
-// Route::resource('categories', CategoryController::class);
-Route::post('addBook', [BookController::class, 'addBook']);
 Route::post('addCategory', [CategoryController::class, 'addCategory']);
+Route::get('listCategories', [CategoryController::class, 'listCategories']);
+Route::delete('deleteCategory/{id}', [CategoryController::class, 'deleteCategory']);
+Route::get('getCategory/{id}', [CategoryController::class, 'getCategory']);
+Route::post('updateCategory/{id}', [CategoryController::class, 'updateCategory']);
+Route::get('searchCategory/{key}', [CategoryController::class, 'searchCategory']);
+
+Route::post('addBook', [BookController::class, 'addBook']);
+Route::get('listBooks', [BookController::class, 'listBooks']);
+Route::delete('deleteBook/{id}', [BookController::class, 'deleteBook']);
+Route::get('getBook/{id}', [BookController::class, 'getBook']);
+Route::post('updateBook/{id}', [BookController::class, 'updateBook']);
+Route::get('searchBook/{key}', [BookController::class, 'searchBook']);

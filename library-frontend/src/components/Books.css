@@ -1,0 +1,81 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #007bff;
+  }
+  
+  .container {
+    max-width: 1200px;
+  }
+  
+  .table {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  th, td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  td img {
+    border-radius: 5px;
+  }
+  
+  button {
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  
+  /* Modal Styles */
+  .modal-header {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .modal-footer button {
+    border-radius: 5px;
+  }
+  
+  /* Hover effects */
+  .table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Button styles for delete and update */
+  button {
+    font-size: 0.875rem;
+    padding: 0.4rem 1.2rem;
+    margin: 0.2rem;
+  }
+  
+  button.delete {
+    background-color: #ff5733;
+  }
+  
+  button.update {
+    background-color: #ffc107;
+  }
+  
+  button.delete:hover {
+    background-color: #ff2a00;
+  }
+  
+  button.update:hover {
+    background-color: #e6a700;
+  }
