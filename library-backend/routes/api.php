@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RecordController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +31,20 @@ Route::delete('delete/{id}', [RecordController::class, 'delete']);
 Route::get('getRecord/{id}', [RecordController::class, 'getRecord']);
 Route::post('updateRecord/{id}', [RecordController::class, 'updateRecord']);
 Route::get('search/{key}', [RecordController::class, 'search']);
+
+Route::post('addAuthor', [AuthorController::class, 'addAuthor']);
+Route::get('listAuthors', [AuthorController::class, 'listAuthors']);
+Route::delete('deleteAuthor/{id}', [AuthorController::class, 'deleteAuthor']);
+Route::get('getAuthor/{id}', [AuthorController::class, 'getAuthor']);
+Route::post('updateAuthor/{id}', [AuthorController::class, 'updateAuthor']);
+Route::get('searchAuthor/{key}', [AuthorController::class, 'searchAuthor']);
+
+
+
+
+
+// Route::resource('books', BookController::class);
+// Route::resource('authors', AuthorController::class);
+// Route::resource('categories', CategoryController::class);
+Route::post('addBook', [BookController::class, 'addBook']);
+Route::post('addCategory', [CategoryController::class, 'addCategory']);

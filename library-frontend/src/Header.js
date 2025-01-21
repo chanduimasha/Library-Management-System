@@ -73,6 +73,13 @@ function Header() {
                   <Nav.Link as={Link} to="/add">Add Record</Nav.Link>
                   <Nav.Link as={Link} to="/update">Update Record</Nav.Link>
                   <Nav.Link as={Link} to="/search">Search Record</Nav.Link>
+
+
+                  <Nav.Link as={Link} to="/addAuthor">Author</Nav.Link>
+
+                  <Nav.Link as={Link} to="/books">Books</Nav.Link>
+                  <Nav.Link as={Link} to="/books/add">Add</Nav.Link>
+                  <Nav.Link as={Link} to="/books/edit/:id">Edit</Nav.Link>
                 </>
               ) : null}
             </Nav>
