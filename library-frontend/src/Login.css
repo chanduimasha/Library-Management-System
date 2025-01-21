@@ -1,0 +1,29 @@
+body {
+    background-color: #f8f9fa;
+  }
+  
+  .card {
+    border: none;
+  }
+  
+  .card h2 {
+    font-weight: bold;
+  }
+  
+  .btn-dark {
+    background-color: #343a40;
+    border: none;
+  }
+  
+  .btn-dark:hover {
+    background-color: #23272b;
+  }
+  
+  .alert {
+    margin-bottom: 15px;
+  }
+  
+  .text-muted {
+    font-size: 0.875rem;
+  }
+  
