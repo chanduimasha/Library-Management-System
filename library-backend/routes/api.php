@@ -25,3 +25,4 @@ Route::post('login', [UserController::class, 'login']);
 Route::post('addRecord', [RecordController::class, 'addRecord']);
 Route::get('list', [RecordController::class, 'list']);
 Route::delete('delete/{id}', [RecordController::class, 'delete']);
+Route::get('getRecord/{id}', [RecordController::class, 'getRecord']);

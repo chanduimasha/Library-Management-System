@@ -30,4 +30,7 @@ class RecordController extends Controller
             return ["result" => "Operation failed"];
         }
     }
+    function getRecord($id) {
+        return Record::find($id);
+    }
 }
