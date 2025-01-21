@@ -1,15 +1,10 @@
 import Header from "./Header";
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function RecordList() {
   const [data, setData] = useState([]);
-
-  //   useEffect(async () => {
-  //     let result = await fetch("http://localhost:8000/api/list");
-  //     result = await result.json();
-  //     setData(result);
-  //   }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -66,7 +61,19 @@ function RecordList() {
                     src={"http://localhost:8000/" + item.file_path}
                   />
                 </td>
-                <td><span onClick={()=>deleteAction(item.id)} className="delete">Delete</span></td>
+                <td>
+                  <span
+                    onClick={() => deleteAction(item.id)}
+                    className="delete"
+                  >
+                    Delete
+                  </span>
+                </td>
+                <td>
+                  <Link to={"/update/" + item.id}>
+                    <span className="update">Update</span>
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>

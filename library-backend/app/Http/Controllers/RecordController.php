@@ -33,4 +33,18 @@ class RecordController extends Controller
     function getRecord($id) {
         return Record::find($id);
     }
+    function updateRecord($id, Request $req) {
+        $record = Record::find($id);
+        $record->name = $req->input('name');
+        $record->author = $req->input('author');
+        $record->category = $req->input('category');
+        $record->description = $req->input('description');
+        $record->no_of_coppies = $req->input('coppies');
+        $record->file_path=$req->file('file')->store('records');
+        $record->save();
+        return $record;
+    }
+    function search($key) {
+        return Record::where('name', 'LIKE', "%$key%")->get();
+    }
 }

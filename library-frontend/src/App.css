@@ -71,6 +71,32 @@
   transform: scale(0.95); /* Slightly shrink the button */
 }
 
+.update {
+  display: inline-block;
+  background-color: #1890ff; /* Blue background for update */
+  color: #fff; /* White text color */
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 12px; /* Add some padding */
+  border-radius: 4px; /* Rounded corners */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+  text-align: center; /* Center the text */
+  text-decoration: none; /* Remove underline */
+}
+
+.update:hover {
+  background-color: #147ad6; /* Darker blue on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+}
+
+.update:active {
+  background-color: #0f5ea1; /* Even darker blue on active click */
+  transform: scale(0.95); /* Slightly shrink the button */
+}
+
+
 
 @keyframes App-logo-spin {
   from {
