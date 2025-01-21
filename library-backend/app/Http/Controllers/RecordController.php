@@ -22,4 +22,12 @@ class RecordController extends Controller
     function list() {
         return Record::all();
     }
+    function delete($id) {
+        $result = Record::where('id', $id)->delete();
+        if($result) {
+            return ["result" => "Record has been deleted"];
+        } else {
+            return ["result" => "Operation failed"];
+        }
+    }
 }

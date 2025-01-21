@@ -46,6 +46,30 @@
   border-bottom: 2px solid #ffcc00; /* Add underline for active link */
 }
 
+.delete {
+  display: inline-block;
+  background-color: #ff4d4f; /* Red background for delete */
+  color: #fff; /* White text color */
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 12px; /* Add some padding */
+  border-radius: 4px; /* Rounded corners */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+  text-align: center; /* Center the text */
+  text-decoration: none; /* Remove underline */
+}
+
+.delete:hover {
+  background-color: #d9363e; /* Darker red on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+}
+
+.delete:active {
+  background-color: #b71c1c; /* Even darker red on active click */
+  transform: scale(0.95); /* Slightly shrink the button */
+}
 
 
 @keyframes App-logo-spin {

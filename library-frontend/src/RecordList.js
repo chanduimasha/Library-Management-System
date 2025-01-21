@@ -19,7 +19,20 @@ function RecordList() {
     }
     fetchData();
   }, []);
-  console.warn("result", data);
+
+  function deleteAction(id) {
+    if (window.confirm("Are you sure you want to delete?")) {
+      fetch("http://localhost:8000/api/delete/" + id, {
+        method: "DELETE",
+      }).then((result) => {
+        result = result.json();
+        console.warn(result);
+        const newData = data.filter((item) => item.id !== id);
+        setData(newData);
+      });
+    }
+  }
+
   return (
     <div>
       <Header />
@@ -35,6 +48,7 @@ function RecordList() {
               <th>Description</th>
               <th>Coppies</th>
               <th>Image</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -52,6 +66,7 @@ function RecordList() {
                     src={"http://localhost:8000/" + item.file_path}
                   />
                 </td>
+                <td><span onClick={()=>deleteAction(item.id)} className="delete">Delete</span></td>
               </tr>
             ))}
           </tbody>
