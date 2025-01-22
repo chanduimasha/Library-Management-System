@@ -18,9 +18,15 @@ class ReaderController extends Controller
         return $reader;
     }
 
-    function listReaders() {
-        return Reader::all();
-    }
+    // function listReaders() {
+    //     return Reader::all();
+    // }
+
+    function listReaders()
+{
+    return Reader::with('books')->get();
+}
+
 
     function deleteReader($id) {
         $reader = Reader::find($id);

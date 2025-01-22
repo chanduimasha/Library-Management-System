@@ -15,10 +15,12 @@ function UpdateReader() {
   const [error, setError] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [books, setBooks] = useState([]);
 
   // Fetch author data when component mounts
   useEffect(() => {
     fetchReaderData();
+    fetchBooks();
   }, [id]);
 
   const fetchReaderData = async () => {
@@ -40,11 +42,22 @@ function UpdateReader() {
     }
   };
 
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/listBooks");
+      const result = await response.json();
+      setBooks(result);
+    } catch (error) {
+      console.error("Error fetching authors:", error);
+    }
+  };
+
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
       formData.append("name", data.name);
+      formData.append("book_id", data.book_id);
       formData.append("address", data.address);
       formData.append("contact", data.contact);
       formData.append("age", data.age);
@@ -90,7 +103,27 @@ function UpdateReader() {
                 placeholder="Enter author name"
                 required
               />
-            </div><br/>
+            </div>
+            <br />
+
+            <div className="mb-3">
+              <select
+                value={data.book_id || ""}
+                onChange={(e) =>
+                  setData({ ...data, book_id: e.target.value })
+                }
+                className="form-control form-input"
+                required
+              >
+                <option value="">Select Book</option>
+                {books.map((book) => (
+                  <option key={book.book_id} value={book.book_id}>
+                    {book.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <br />
 
             <div className="form-group">
               <input
@@ -102,7 +135,8 @@ function UpdateReader() {
                 placeholder="Enter reader address"
                 required
               />
-            </div><br/>
+            </div>
+            <br />
             <div className="form-group">
               <input
                 type="text"
@@ -113,7 +147,8 @@ function UpdateReader() {
                 placeholder="Enter reader contact number"
                 required
               />
-            </div><br/>
+            </div>
+            <br />
 
             <div className="form-group">
               <input
@@ -125,7 +160,8 @@ function UpdateReader() {
                 placeholder="Enter reader age"
                 required
               />
-            </div><br/>
+            </div>
+            <br />
             <div className="text-center">
               <Button
                 type="submit"

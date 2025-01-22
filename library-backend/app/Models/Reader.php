@@ -11,4 +11,10 @@ class Reader extends Model
 
     protected $primaryKey = 'reader_id';
 
+    public function books()
+{
+    return $this->belongsToMany(Book::class, 'book_readers', 'reader_id', 'book_id');
+}
+
+
 }

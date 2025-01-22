@@ -3,12 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RecordController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\BookAuthorController;
 use App\Http\Controllers\ReaderController;
+use App\Http\Controllers\BookReaderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +26,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
-Route::post('addRecord', [RecordController::class, 'addRecord']);
-Route::get('list', [RecordController::class, 'list']);
-Route::delete('delete/{id}', [RecordController::class, 'delete']);
-Route::get('getRecord/{id}', [RecordController::class, 'getRecord']);
-Route::post('updateRecord/{id}', [RecordController::class, 'updateRecord']);
-Route::get('search/{key}', [RecordController::class, 'search']);
 
 Route::post('addAuthor', [AuthorController::class, 'addAuthor']);
 Route::get('listAuthors', [AuthorController::class, 'listAuthors']);
@@ -55,11 +48,6 @@ Route::get('getBook/{id}', [BookController::class, 'getBook']);
 Route::post('updateBook/{id}', [BookController::class, 'updateBook']);
 Route::get('searchBook/{key}', [BookController::class, 'searchBook']);
 Route::put('/updateStatus/{id}', [BookController::class, 'updateStatus']);
-Route::put('updateReaderStatus/{id}', [ReaderController::class, 'updateReaderStatus']);
-
-Route::post('addBookAuthor', [BookController::class, 'addBookAuthor']);
-// Route::post('storeBookAuthor', [BookAuthorController::class, 'storeBookAuthor']);
-
 
 Route::post('addReader', [ReaderController::class, 'addReader']);
 Route::get('listReaders', [ReaderController::class, 'listReaders']);
@@ -67,4 +55,6 @@ Route::delete('deleteReader/{id}', [ReaderController::class, 'deleteReader']);
 Route::get('getReader/{id}', [ReaderController::class, 'getReader']);
 Route::post('updateReader/{id}', [ReaderController::class, 'updateReader']);
 Route::get('searchReader/{key}', [ReaderController::class, 'searchReader']);
+Route::put('updateReaderStatus/{id}', [ReaderController::class, 'updateReaderStatus']);
 
+Route::post('addBookReader', [BookReaderController::class, 'addBookReader']);

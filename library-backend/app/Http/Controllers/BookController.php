@@ -23,22 +23,6 @@ class BookController extends Controller
         return $book;
     }
 
-    function addBookAuthor(Request $req) {
-        $book = new BookAuthor;
-        $book->book_id = $req->input('book_id');
-        $book->author_id = $req->input('author_id');
-        $book->save();
-        return $book;
-    }
-    
-    function addBookCategory(Request $req) {
-        $book = new Book;
-        $book->category_id = $req->input('category_id');
-        $book->save();
-        return $book;
-    }
-
-
     function deleteBook($id) {
         $book = Book::find($id);
         if ($book) {

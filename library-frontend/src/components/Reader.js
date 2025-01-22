@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, act } from "react";
 import { Table, Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Header from "../Header";
 import "./Reader.css";
+import { useNavigate } from "react-router-dom";
 
 function Reader() {
   const [name, setName] = useState("");
@@ -12,43 +13,102 @@ function Reader() {
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [selectedBook, setSelectedBook] = useState("");
+  const [booksList, setBooksList] = useState([]);
+  const navigate = useNavigate();
 
   async function addReader() {
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("address", address);
-    formData.append("contact", contact);
-    formData.append("age", age);
-    formData.append("active", 1); // Default to active
+    const formData = {
+      name: name,
+      book_id: selectedBook,
+      address: address,
+      contact: contact,
+      age: age,
+      active: 1,
+    };
 
-    let response = await fetch("http://localhost:8000/api/addReader", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      await fetch("http://localhost:8000/api/addReader", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }).then(async (response) => {
+        const data = await response.json();
+        console.log("response", data);
+        console.log("reader_id", data?.reader_id);
 
-    if (response.ok) {
-      setName("");
-      setAddress("");
-      setContact("");
-      setAge("");
-      alert("Reader has been added successfully");
+        // Call the addBookAuthor function with necessary data
+        const response2 = await addBookReader(data?.reader_id, selectedBook);
 
-      // Fetch and update the list of readers
-      const updatedList = await fetch(
-        "http://localhost:8000/api/listReaders"
-      ).then((res) => res.json());
-      setData(updatedList.filter((item) => item.active === 1)); // Only include active readers
-    } else {
-      alert("Failed to add reader");
+        if (response2.ok) {
+          alert("Data has been saved successfully");
+          setName("");
+          setAddress("");
+          setContact("");
+          setAge("");
+          setSelectedBook("");
+          fetchData();
+        } else {
+          alert("Failed to add author");
+        }
+      });
+    } catch (error) {
+      console.error("Error while adding reader:", error);
     }
   }
 
-  useEffect(() => {
-    async function fetchData() {
-      let result = await fetch("http://localhost:8000/api/listReaders");
-      result = await result.json();
-      setData(result.filter((item) => item.active === 1)); // Only display active books
+  async function addBookReader(readerId, bookId) {
+    const formData2 = {
+      book_id: parseInt(bookId),
+      reader_id: parseInt(readerId),
+    };
+    console.log("formData2", formData2);
+    try {
+      const result2 = await fetch("http://localhost:8000/api/addBookReader", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData2),
+      });
+
+      console.log("result2", result2);
+      return result2;
+    } catch (error) {
+      console.error("Error while adding book reader:", error);
     }
+  }
+
+  async function fetchData() {
+    let result = await fetch("http://localhost:8000/api/listReaders");
+    result = await result.json();
+
+    const modifiedData = result.flatMap((reader) =>
+      reader.books.map((book) => ({
+        reader_id: reader.reader_id,
+        title: book.title,
+        readerName: reader.name,
+        readerAge: reader.age,
+        readerContact: reader.contact,
+        readerAddress: reader.address,
+        readerActive: reader.active,
+        bookActive: book.active,
+      }))
+    );
+
+    console.log("modifiedData", modifiedData);
+
+    setData(
+      modifiedData.filter(
+        (item) => item.readerActive === 1 && item.bookActive === 1
+      )
+    ); // Only display active books
+    console.log("result", result);
+  }
+
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -94,6 +154,23 @@ function Reader() {
     }
   }
 
+  useEffect(() => {
+    async function fetchData() {
+      let result = await fetch("http://localhost:8000/api/listBooks");
+      result = await result.json();
+      setBooksList(result);
+    }
+    fetchData();
+  }, []);
+
+  // Helper function to get author name by ID
+  const getBookName = (bookId) => {
+    console.log("Looking for bookId:", bookId, "in booksList:", booksList);
+    const book = booksList.find((b) => b.book_id === bookId);
+    console.log("Found book:", bookId);
+    return book ? book.title : "Unknown Book";
+  };
+
   return (
     <div>
       <Header />
@@ -112,6 +189,21 @@ function Reader() {
           </div>
           <br />
           <div className="form-group">
+            <select
+              id="book"
+              onChange={(e) => setSelectedBook(e.target.value)}
+              className="form-control form-control-lg"
+            >
+              <option value="">Select Book</option>
+              {booksList.map((book) => (
+                <option key={book.book_id} value={book.book_id}>
+                  {book.title}
+                </option>
+              ))}
+            </select>
+          </div>
+          <br />
+          <div className="form-group">
             <input
               type="text"
               id="address"
@@ -122,16 +214,24 @@ function Reader() {
             />
           </div>
           <br />
+
           <div className="form-group">
             <input
               type="text"
               id="contact"
               value={contact}
-              onChange={(e) => setContact(e.target.value)}
+              onChange={(e) => {
+                const input = e.target.value;
+                // Allow only numbers and limit to 10 characters
+                if (/^\d*$/.test(input) && input.length <= 10) {
+                  setContact(input);
+                }
+              }}
               placeholder="Enter Contact"
               className="form-control form-control-lg"
             />
           </div>
+
           <br />
           <div className="form-group">
             <input
@@ -162,23 +262,23 @@ function Reader() {
           <Table striped bordered hover responsive className="shadow-lg">
             <thead className="thead-dark">
               <tr>
-                <th>Id</th>
+                <th>Book</th>
                 <th>Name</th>
-                <th>Address</th>
-                <th>Contact</th>
                 <th>Age</th>
+                <th>Contact</th>
+                <th>Address</th>
                 <th>Delete</th>
                 <th>Update</th>
               </tr>
             </thead>
             <tbody>
-              {data.map((item) => (
-                <tr key={item.reader_id}>
-                  <td>{item.reader_id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.address}</td>
-                  <td>{item.contact}</td>
-                  <td>{item.age}</td>
+              {data.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.title}</td>
+                  <td>{item.readerName}</td>
+                  <td>{item.readerAge}</td>
+                  <td>{item.readerContact}</td>
+                  <td>{item.readerAddress}</td>
                   <td>
                     <Button
                       variant="danger"
