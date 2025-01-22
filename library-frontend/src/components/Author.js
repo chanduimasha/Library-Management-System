@@ -10,16 +10,39 @@ function Author() {
   const [show, setShow] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
+  // async function addAuthor() {
+  //   const formData = new FormData();
+  //   formData.append("name", name);
+
+  //   let result = await fetch("http://localhost:8000/api/addAuthor", {
+  //     method: "POST",
+  //     body: formData,
+  //   });
+  //   alert("Data has been saved successfully");
+  // }
+
   async function addAuthor() {
     const formData = new FormData();
     formData.append("name", name);
-
-    let result = await fetch("http://localhost:8000/api/addAuthor", {
+  
+    let response = await fetch("http://localhost:8000/api/addAuthor", {
       method: "POST",
       body: formData,
     });
-    alert("Data has been saved successfully");
+  
+    if (response.ok) {
+      setName("");
+      alert("Data has been saved successfully");
+      // Fetch updated list of authors
+      const updatedList = await fetch("http://localhost:8000/api/listAuthors").then((res) =>
+        res.json()
+      );
+      setData(updatedList);
+    } else {
+      alert("Failed to add author");
+    }
   }
+  
 
   useEffect(() => {
     async function fetchData() {
@@ -61,6 +84,7 @@ function Author() {
             <input
               type="text"
               id="name"
+              value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter Name"
               className="form-control form-control-lg"

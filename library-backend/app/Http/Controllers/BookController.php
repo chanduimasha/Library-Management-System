@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Author;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\BookAuthor;
 
 class BookController extends Controller
 {
@@ -23,44 +24,19 @@ class BookController extends Controller
     }
 
     function addBookAuthor(Request $req) {
-        $book = new Book;
+        $book = new BookAuthor;
+        $book->book_id = $req->input('book_id');
         $book->author_id = $req->input('author_id');
         $book->save();
         return $book;
     }
     
-
-    // function listBooks() {
-    //     return Book::all();
-    // }
-
-    // function deleteBook($id) {
-    //     $result = Book::where('id', $id)->delete();
-    //     if($result) {
-    //         return ["result" => "Book has been deleted"];
-    //     } else {
-    //         return ["result" => "Operation failed"];
-    //     }
-    // }
-
-    // function deleteBook($id) {
-    //     $book = Book::find($id);
-    
-    //     if ($book) {
-    //         if ($book->active === 0) {
-    //             // If already inactive, perform permanent delete
-    //             $book->delete();
-    //             return ["result" => "Book has been permanently deleted"];
-    //         } else {
-    //             // Change the active status to 0
-    //             $book->active = 0;
-    //             $book->save();
-    //             return ["result" => "Book has been marked as inactive"];
-    //         }
-    //     } else {
-    //         return ["result" => "Book not found"];
-    //     }
-    // }
+    function addBookCategory(Request $req) {
+        $book = new Book;
+        $book->category_id = $req->input('category_id');
+        $book->save();
+        return $book;
+    }
 
 
     function deleteBook($id) {
@@ -103,10 +79,6 @@ class BookController extends Controller
     }
 }
 
-
-
-
-    
 
     function getBook($id) {
         return Book::find($id);

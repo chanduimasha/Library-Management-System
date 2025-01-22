@@ -55,5 +55,5 @@ Route::post('updateBook/{id}', [BookController::class, 'updateBook']);
 Route::get('searchBook/{key}', [BookController::class, 'searchBook']);
 Route::put('/updateStatus/{id}', [BookController::class, 'updateStatus']);
 
-
-Route::post('storeBookAuthor', [BookAuthorController::class, 'storeBookAuthor']);
+Route::post('addBookAuthor', [BookController::class, 'addBookAuthor']);
+// Route::post('storeBookAuthor', [BookAuthorController::class, 'storeBookAuthor']);

@@ -86,6 +86,7 @@ import Header from "./Header";
 import { useState, useEffect } from "react";
 import "./AddBook.css";
 import { useNavigate } from "react-router-dom";
+import { Col } from "react-bootstrap";
 
 function AddBook() {
   const [title, setTitle] = useState("");
@@ -97,6 +98,46 @@ function AddBook() {
   const [categoryList, setCategoryList] = useState([]);
   const navigate = useNavigate();
 
+  // async function addBook() {
+  //   const formData = {
+  //     title: title,
+  //     author_id: author, // Send author_id instead of author name
+  //     category_id: category, // Send category_id instead of category name
+  //     description: description,
+  //     stock: stock,
+  //     active: 1, // Default to active
+  //   };
+
+  //   await fetch("http://localhost:8000/api/addBook", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(formData),
+  //   }).then(async (response) => {
+  //     const data = await response.json();
+  //     console.log("response", data);
+  //     console.log("response", data?.book_id);
+
+  //     const formData2 = {
+  //       author_id: author,
+  //       book_id: data?.book_id, // Send author_id instead of author name
+  //     };
+
+  //     let result2 = await fetch("http://localhost:8000/api/addBookAuthor", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData2),
+  //     });
+  //     console.log("result2", result2);
+  //   });
+
+  //   alert("Data has been saved successfully");
+  //   navigate("/books");
+  // }
+
   async function addBook() {
     const formData = {
       title: title,
@@ -107,15 +148,48 @@ function AddBook() {
       active: 1, // Default to active
     };
 
-    let result = await fetch("http://localhost:8000/api/addBook", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    alert("Data has been saved successfully");
-    navigate("/books");
+    try {
+      const response = await fetch("http://localhost:8000/api/addBook", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      console.log("response", data);
+      console.log("response", data?.book_id);
+
+      // Call the addBookAuthor function with necessary data
+      await addBookAuthor(data?.book_id, author);
+
+      alert("Data has been saved successfully");
+      navigate("/books");
+    } catch (error) {
+      console.error("Error while adding book:", error);
+    }
+  }
+
+  async function addBookAuthor(bookId, authorId) {
+    const formData2 = {
+      author_id: authorId,
+      book_id: bookId,
+    };
+
+    try {
+      const result2 = await fetch("http://localhost:8000/api/addBookAuthor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData2),
+      });
+
+      console.log("result2", result2);
+    } catch (error) {
+      console.error("Error while adding book author:", error);
+    }
   }
 
   useEffect(() => {

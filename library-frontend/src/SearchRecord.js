@@ -213,7 +213,7 @@ function SearchRecord() {
             type="text"
             value={searchKey}
             onChange={handleSearch}
-            placeholder="Search by title, author, category, or description"
+            placeholder="Search by Title..."
             className="form-control search-input"
           />
           <Table striped bordered hover responsive className="shadow-lg mt-4">
