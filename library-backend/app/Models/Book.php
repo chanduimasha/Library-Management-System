@@ -12,10 +12,10 @@ class Book extends Model
     protected $primaryKey = 'book_id';
 
 
-    public function authors()
-{
-    return $this->belongsToMany(Author::class, 'book_author');
-}
+//     public function authors()
+// {
+//     return $this->belongsToMany(Author::class, 'book_author');
+// }
 
 
     // protected $fillable = ['title', 'author_id', 'category_id', 'stock'];

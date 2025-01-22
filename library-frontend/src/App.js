@@ -13,6 +13,8 @@ import Books from "./components/Books";
 import UpdateAuthor from "./components/UpdateAuthor";
 import UpdateCategory from "./components/UpdateCategory";
 import UpdateBooks from "./components/UpdateBooks";
+import Reader from "./components/Reader";
+import UpdateReader from "./components/UpdateReader";
 
 
 import React from "react";
@@ -29,14 +31,14 @@ function App() {
           {/* <Route path="/addAuthor" element={<Author />} /> */}
           {/* <Route path="/addCategory" element={<Category />} /> */}
           <Route path="/category" element={<Category />} />
-
-          {/* <Route path="/addBooks" element={<Books />} /> */}
           <Route path="/books" element={<Books />} />
-
+          <Route path="/reader" element={<Reader />} />
           <Route path="/author" element={<Author />} />
+
           <Route path="/updateAuthor/:id" element={<UpdateAuthor />} />
           <Route path="/updateCategory/:id" element={<UpdateCategory />} />
           <Route path="/updateBooks/:id" element={<UpdateBooks />} />
+          <Route path="/updateReader/:id" element={<UpdateReader />} />
 
           <Route
             path="/updateBooks/:id"
