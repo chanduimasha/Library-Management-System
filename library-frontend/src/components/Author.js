@@ -55,9 +55,9 @@ function Author() {
         <div className="card shadow-lg p-4 rounded">
           <h2 className="text-center mb-4">Add New Author</h2>
           <div className="form-group">
-            <label htmlFor="name" className="form-label">
+            {/* <label htmlFor="name" className="form-label">
               Name
-            </label>
+            </label> */}
             <input
               type="text"
               id="name"
@@ -69,6 +69,11 @@ function Author() {
           <button
             onClick={addAuthor}
             className="btn btn-dark btn-lg btn-block mt-4"
+            style={{
+              padding: "10px 10px",
+              fontSize: "18px",
+              borderRadius: "5px",
+            }}
           >
             Add Author
           </button>
@@ -81,7 +86,7 @@ function Author() {
               <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Delete</th>
+                {/* <th>Delete</th> */}
                 <th>Update</th>
               </tr>
             </thead>
@@ -90,23 +95,31 @@ function Author() {
                 <tr key={item.author_id}>
                   <td>{item.author_id}</td>
                   <td>{item.name}</td>
-                  <td>
+                  {/* <td>
                     <Button
                       variant="danger"
                       size="sm"
-                      style={{ padding: "5px 10px", fontSize: "15px" }}
+                      style={{
+                        padding: "5px 10px",
+                        fontSize: "15px",
+                        borderRadius: "5px",
+                      }}
                       onClick={() => deleteAction(item.author_id)}
                     >
                       Delete
                     </Button>
-                  </td>
+                  </td> */}
 
                   <td>
-                    <Link to={"/update/" + item.author_id}>
+                    <Link to={"/updateAuthor/" + item.author_id}>
                       <Button
                         variant="warning"
                         size="sm"
-                        style={{ padding: "5px 10px", fontSize: "15px" }}
+                        style={{
+                          padding: "5px 10px",
+                          fontSize: "15px",
+                          borderRadius: "5px",
+                        }}
                       >
                         Update
                       </Button>

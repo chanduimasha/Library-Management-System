@@ -39,6 +39,17 @@ class AuthorController extends Controller
         return $author;
     }
 
+//     public function updateAuthor(Request $request, $id)
+// {
+//     $author = Author::find($id);
+//     if ($author) {
+//         $author->name = $request->name;
+//         $author->save();
+//         return response()->json(['success' => true, 'message' => 'Author updated successfully']);
+//     }
+//     return response()->json(['success' => false, 'message' => 'Author not found']);
+// }
+
     function searchAuthor($key) {
         return Author::where('name', 'LIKE', "%$key%")->get();
     }

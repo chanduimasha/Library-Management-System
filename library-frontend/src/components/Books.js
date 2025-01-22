@@ -11,12 +11,11 @@ function RecordList() {
   const [show, setShow] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
-  // Fetch books data
   useEffect(() => {
     async function fetchData() {
       let result = await fetch("http://localhost:8000/api/listBooks");
       result = await result.json();
-      setData(result);
+      setData(result.filter((item) => item.active === 1)); // Only display active books
     }
     fetchData();
   }, []);
@@ -41,22 +40,46 @@ function RecordList() {
     fetchCategories();
   }, []);
 
-  // Handle delete action
+  // Function triggered when the delete button is clicked
   function deleteAction(book_id) {
-    setDeleteId(book_id);
-    setShow(true);
+    setDeleteId(book_id); // Store the ID of the book to be "deleted"
+    setShow(true); // Show the confirmation modal
   }
 
+  // Function to handle the deletion logic
   function handleDelete() {
     if (deleteId !== null) {
-      fetch("http://localhost:8000/api/delete/" + deleteId, {
-        method: "DELETE",
-      }).then((result) => {
-        result = result.json();
-        const newData = data.filter((item) => item.book_id !== deleteId);
-        setData(newData);
-        setShow(false); // Close the modal after deletion
-      });
+      fetch(`http://localhost:8000/api/updateStatus/${deleteId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ active: 0 }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            console.error("Error Response:", response);
+            throw new Error("Failed to update book status");
+          }
+          return response.json();
+        })
+        .then((response) => {
+          if (response.success) {
+            const updatedData = data.filter(
+              (item) => item.book_id !== deleteId
+            );
+            setData(updatedData);
+            alert("Book has been marked as inactive.");
+          } else {
+            alert(response.message || "Error updating book status.");
+          }
+          setShow(false);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("An error occurred while updating book status.");
+          setShow(false);
+        });
     }
   }
 
@@ -76,7 +99,7 @@ function RecordList() {
     <div>
       <Header />
       <div className="container my-4">
-        <h1 className="text-center text-primary mb-4">Records List</h1>
+        <h1 className="text-center text-dark mb-4">Book List</h1>
         <div className="col-sm-12">
           <Table striped bordered hover responsive className="shadow-lg">
             <thead className="thead-dark">
@@ -105,13 +128,26 @@ function RecordList() {
                       variant="danger"
                       size="sm"
                       onClick={() => deleteAction(item.book_id)}
+                      style={{
+                        padding: "5px 10px",
+                        fontSize: "15px",
+                        borderRadius: "5px",
+                      }}
                     >
                       Delete
                     </Button>
                   </td>
                   <td>
-                    <Link to={"/update/" + item.book_id}>
-                      <Button variant="warning" size="sm">
+                    <Link to={"/updateBooks/" + item.book_id}>
+                      <Button
+                        variant="warning"
+                        size="sm"
+                        style={{
+                          padding: "5px 10px",
+                          fontSize: "15px",
+                          borderRadius: "5px",
+                        }}
+                      >
                         Update
                       </Button>
                     </Link>
@@ -120,6 +156,21 @@ function RecordList() {
               ))}
             </tbody>
           </Table>
+        </div><br/>
+        <div>
+          <Link to="/add">
+            <Button
+              variant="dark"
+              size="sm"
+              style={{
+                padding: "8px 100px",
+                fontSize: "15px",
+                borderRadius: "5px",
+              }}
+            >
+              Add New Book
+            </Button>
+          </Link>
         </div>
       </div>
 

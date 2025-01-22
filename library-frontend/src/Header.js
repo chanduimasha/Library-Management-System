@@ -61,7 +61,7 @@ function Header() {
     <div>
       <Navbar bg="dark" variant="dark" expand="lg">
         <Container>
-          <Navbar.Brand as={Link} to="/">
+          <Navbar.Brand as={Link} to="/books">
             📚 Library
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -69,16 +69,16 @@ function Header() {
             <Nav className="me-auto">
               {localStorage.getItem("user-info") ? (
                 <>
-                  <Nav.Link as={Link} to="/">Record List</Nav.Link>
-                  <Nav.Link as={Link} to="/add">Add Record</Nav.Link>
-                  <Nav.Link as={Link} to="/update">Update Record</Nav.Link>
+                  {/* <Nav.Link as={Link} to="/">Record List</Nav.Link> */}
+                  {/* <Nav.Link as={Link} to="/add">Add Book</Nav.Link> */}
+                  {/* <Nav.Link as={Link} to="/update">Update Record</Nav.Link> */}
+                  <Nav.Link as={Link} to="/books">Books</Nav.Link>
+                  <Nav.Link as={Link} to="/author">Author</Nav.Link>
+                  <Nav.Link as={Link} to="/category">Category</Nav.Link>
                   <Nav.Link as={Link} to="/search">Search Record</Nav.Link>
 
 
-                  <Nav.Link as={Link} to="/addAuthor">Author</Nav.Link>
-                  <Nav.Link as={Link} to="/addCategory">Category</Nav.Link>
 
-                  <Nav.Link as={Link} to="/addBooks">Books</Nav.Link>
                 </>
               ) : null}
             </Nav>

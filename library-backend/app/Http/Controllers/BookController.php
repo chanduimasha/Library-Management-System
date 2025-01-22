@@ -22,9 +22,17 @@ class BookController extends Controller
         return $book;
     }
 
-    function listBooks() {
-        return Book::all();
+    function addBookAuthor(Request $req) {
+        $book = new Book;
+        $book->author_id = $req->input('author_id');
+        $book->save();
+        return $book;
     }
+    
+
+    // function listBooks() {
+    //     return Book::all();
+    // }
 
     // function deleteBook($id) {
     //     $result = Book::where('id', $id)->delete();
@@ -35,41 +43,95 @@ class BookController extends Controller
     //     }
     // }
 
+    // function deleteBook($id) {
+    //     $book = Book::find($id);
+    
+    //     if ($book) {
+    //         if ($book->active === 0) {
+    //             // If already inactive, perform permanent delete
+    //             $book->delete();
+    //             return ["result" => "Book has been permanently deleted"];
+    //         } else {
+    //             // Change the active status to 0
+    //             $book->active = 0;
+    //             $book->save();
+    //             return ["result" => "Book has been marked as inactive"];
+    //         }
+    //     } else {
+    //         return ["result" => "Book not found"];
+    //     }
+    // }
+
+
     function deleteBook($id) {
         $book = Book::find($id);
-    
         if ($book) {
-            if ($book->active === 0) {
-                // If already inactive, perform permanent delete
-                $book->delete();
-                return ["result" => "Book has been permanently deleted"];
-            } else {
-                // Change the active status to 0
-                $book->active = 0;
-                $book->save();
-                return ["result" => "Book has been marked as inactive"];
-            }
+            $book->active = 0; // Set active status to 0
+            $book->save();
+            return response()->json(['message' => 'Book status updated to inactive.'], 200);
         } else {
-            return ["result" => "Book not found"];
+            return response()->json(['message' => 'Book not found.'], 404);
         }
     }
+
+    function listBooks(){
+        return Book::where('active', 1)->get(); // Fetch only active books
+    }
+
+    function updateStatus($id, Request $request)
+{
+    try {
+        // Validate input
+        $validated = $request->validate([
+            'active' => 'required|boolean', // Ensure 'active' is boolean
+        ]);
+
+        // Find the book
+        $book = Book::find($id);
+        if (!$book) {
+            return response()->json(['success' => false, 'message' => 'Book not found.'], 404);
+        }
+
+        // Update and save
+        $book->active = $validated['active'];
+        $book->save();
+
+        return response()->json(['success' => true, 'message' => 'Book status updated successfully.'], 200);
+    } catch (\Exception $e) {
+        \Log::error('Error updating status: ' . $e->getMessage());
+        return response()->json(['success' => false, 'message' => 'Server error.'], 500);
+    }
+}
+
+
+
+
     
 
     function getBook($id) {
         return Book::find($id);
     }
 
-    function updateBook($id, Request $req) {
-        $book = Book::find($id);
-        $book->title = $req->input('title');
-        $book->author_id = $req->input('author_id');
-        $book->category_id = $req->input('category_id');
-        $book->stock = $req->input('stock');
-        $book->description = $req->input('description');
-        $book->active = $req->input('active', 1); // Default to 1 (active) if not provided
-        $book->save();
-        return $book;
+    public function updateBook(Request $request, $id)
+{
+    $book = Book::find($id);
+    $book->title = $request->title;
+    $book->author_id = $request->author_id;
+    $book->category_id = $request->category_id;
+    $book->description = $request->description;
+    $book->stock = $request->stock;
+    
+    if ($request->hasFile('file')) {
+        // Handle file upload logic here
+        $file = $request->file('file');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('uploads'), $filename);
+        $book->file_path = 'uploads/' . $filename;
     }
+    
+    $book->save();
+    return response()->json(['success' => true]);
+}
 
     function searchBook($key) {
         return Book::where('title', 'LIKE', "%$key%")->get();

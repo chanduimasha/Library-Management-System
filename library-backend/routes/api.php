@@ -7,6 +7,7 @@ use App\Http\Controllers\RecordController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookAuthorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +53,7 @@ Route::delete('deleteBook/{id}', [BookController::class, 'deleteBook']);
 Route::get('getBook/{id}', [BookController::class, 'getBook']);
 Route::post('updateBook/{id}', [BookController::class, 'updateBook']);
 Route::get('searchBook/{key}', [BookController::class, 'searchBook']);
+Route::put('/updateStatus/{id}', [BookController::class, 'updateStatus']);
+
+
+Route::post('storeBookAuthor', [BookAuthorController::class, 'storeBookAuthor']);

@@ -121,7 +121,7 @@ function Login() {
 
       result = await result.json();
       localStorage.setItem("user-info", JSON.stringify(result));
-      navigate("/add");
+      navigate("/books");
     } catch (error) {
       setErrorMessage("An error occurred. Please check your connection.");
     }
