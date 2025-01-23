@@ -3,7 +3,6 @@ import { Table, Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Header from "../Header";
 import "./Reader.css";
-import { useNavigate } from "react-router-dom";
 
 function Reader() {
   const [name, setName] = useState("");
@@ -15,7 +14,6 @@ function Reader() {
   const [deleteId, setDeleteId] = useState(null);
   const [selectedBook, setSelectedBook] = useState("");
   const [booksList, setBooksList] = useState([]);
-  const navigate = useNavigate();
 
   async function addReader() {
     const formData = {
@@ -74,7 +72,6 @@ function Reader() {
         body: JSON.stringify(formData2),
       });
 
-      console.log("result2", result2);
       return result2;
     } catch (error) {
       console.error("Error while adding book reader:", error);
@@ -88,8 +85,8 @@ function Reader() {
     const modifiedData = result.flatMap((reader) =>
       reader.books.map((book) => ({
         reader_id: reader.reader_id,
-        title: book.title,
         readerName: reader.name,
+        title: book.title,
         readerAge: reader.age,
         readerContact: reader.contact,
         readerAddress: reader.address,
@@ -162,14 +159,6 @@ function Reader() {
     }
     fetchData();
   }, []);
-
-  // Helper function to get author name by ID
-  const getBookName = (bookId) => {
-    console.log("Looking for bookId:", bookId, "in booksList:", booksList);
-    const book = booksList.find((b) => b.book_id === bookId);
-    console.log("Found book:", bookId);
-    return book ? book.title : "Unknown Book";
-  };
 
   return (
     <div>
@@ -262,8 +251,8 @@ function Reader() {
           <Table striped bordered hover responsive className="shadow-lg">
             <thead className="thead-dark">
               <tr>
-                <th>Book</th>
                 <th>Name</th>
+                <th>Book</th>
                 <th>Age</th>
                 <th>Contact</th>
                 <th>Address</th>
@@ -274,8 +263,8 @@ function Reader() {
             <tbody>
               {data.map((item, index) => (
                 <tr key={index}>
-                  <td>{item.title}</td>
                   <td>{item.readerName}</td>
+                  <td>{item.title}</td>
                   <td>{item.readerAge}</td>
                   <td>{item.readerContact}</td>
                   <td>{item.readerAddress}</td>

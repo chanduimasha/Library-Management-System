@@ -1,38 +1,38 @@
 .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .navbar-dark .nav-link {
-    color: #ddd !important;
-    font-size: 1.1rem;
-    margin: 0 10px;
-  }
-  
-  .navbar-dark .nav-link:hover {
-    color: #fff !important;
-  }
-  
-  .navbar-dark .dropdown-menu {
-    background-color: #343a40;
-    border: none;
-  }
-  
-  .navbar-dark .dropdown-item {
-    color: #ddd !important;
-  }
-  
-  .navbar-dark .dropdown-item:hover {
-    background-color: #495057;
-  }
-  
-  .navbar-dark .navbar-toggler {
-    border: none;
-  }
-  
-  .navbar-dark .navbar-toggler-icon {
-    background-color: #fff;
-  }
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navbar-dark .nav-link {
+  color: #ddd !important;
+  font-size: 1.1rem;
+  margin: 0 10px;
+}
+
+.navbar-dark .nav-link:hover {
+  color: #fff !important;
+}
+
+.navbar-dark .dropdown-menu {
+  background-color: #343a40;
+  border: none;
+}
+
+.navbar-dark .dropdown-item {
+  color: #ddd !important;
+}
+
+.navbar-dark .dropdown-item:hover {
+  background-color: #495057;
+}
+
+.navbar-dark .navbar-toggler {
+  border: none;
+}
+
+.navbar-dark .navbar-toggler-icon {
+  background-color: #fff;
+}

@@ -7,7 +7,7 @@ use App\Models\Reader;
 
 class ReaderController extends Controller
 {
-    //
+
     function addReader(Request $req) {
         $reader = new Reader;
         $reader->name = $req->input('name');
@@ -18,14 +18,10 @@ class ReaderController extends Controller
         return $reader;
     }
 
-    // function listReaders() {
-    //     return Reader::all();
-    // }
 
-    function listReaders()
-{
-    return Reader::with('books')->get();
-}
+    function listReaders() {
+        return Reader::with('books')->get();
+    }
 
 
     function deleteReader($id) {
@@ -39,30 +35,29 @@ class ReaderController extends Controller
         }
     }
 
-    function updateReaderStatus($id, Request $request)
-{
-    try {
-        // Validate input
-        $validated = $request->validate([
-            'active' => 'required|boolean', // Ensure 'active' is boolean
-        ]);
+    function updateReaderStatus($id, Request $request) {
+        try {
+            // Validate input
+            $validated = $request->validate([
+                'active' => 'required|boolean', // Ensure 'active' is boolean
+            ]);
 
-        // Find the reader
-        $reader = Reader::find($id);
-        if (!$reader) {
-            return response()->json(['success' => false, 'message' => 'Reader not found.'], 404);
-        }
+            // Find the reader
+            $reader = Reader::find($id);
+            if (!$reader) {
+                return response()->json(['success' => false, 'message' => 'Reader not found.'], 404);
+            }
 
-        // Update and save
-        $reader->active = $validated['active'];
-        $reader->save();
+            // Update and save
+            $reader->active = $validated['active'];
+            $reader->save();
 
-        return response()->json(['success' => true, 'message' => 'Reader status updated successfully.'], 200);
-    } catch (\Exception $e) {
-        \Log::error('Error updating status: ' . $e->getMessage());
-        return response()->json(['success' => false, 'message' => 'Server error.'], 500);
+            return response()->json(['success' => true, 'message' => 'Reader status updated successfully.'], 200);
+        } catch (\Exception $e) {
+            \Log::error('Error updating status: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Server error.'], 500);
+            }
     }
-}
 
     function getReader($id) {
         return Reader::find($id);

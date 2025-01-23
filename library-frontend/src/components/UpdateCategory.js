@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Header from "../Header";
-import "./Author.css"; // You can reuse the same CSS or create Category.css
+import "./Author.css";
 
 function UpdateCategory() {
   const [data, setData] = useState({ name: "" });
@@ -18,12 +18,14 @@ function UpdateCategory() {
   const fetchCategoryData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:8000/api/getCategory/${id}`);
-      
+      const response = await fetch(
+        `http://localhost:8000/api/getCategory/${id}`
+      );
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const result = await response.json();
       setData(result);
     } catch (error) {
@@ -54,7 +56,7 @@ function UpdateCategory() {
 
       const result = await response.json();
       alert("Category updated successfully!");
-      navigate("/category"); // Redirect to category list
+      navigate("/category");
     } catch (error) {
       console.error("Error updating category:", error);
       alert("Failed to update category. Please try again.");
@@ -72,7 +74,9 @@ function UpdateCategory() {
           <h2 className="text-center mb-4">Update Category</h2>
           <form onSubmit={handleUpdate}>
             <div className="form-group">
-              <label htmlFor="name" className="form-label">Name</label>
+              <label htmlFor="name" className="form-label">
+                Name
+              </label>
               <input
                 type="text"
                 id="name"

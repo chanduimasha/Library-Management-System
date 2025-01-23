@@ -7,12 +7,6 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -29,75 +23,78 @@
 }
 
 .navbar-wrapper a {
-  color: white; /* Set text color */
-  text-decoration: none; /* Remove underline */
-  margin-left: 30px; /* Add spacing between links */
-  font-size: 16px; /* Adjust font size */
-  transition: color 0.3s ease; /* Add a smooth hover effect */
+  color: white;
+  text-decoration: none;
+  margin-left: 30px;
+  font-size: 16px;
+  transition: color 0.3s ease;
 }
 
 .navbar-wrapper a:hover {
-  color: #ffcc00; /* Change text color on hover */
-  text-decoration: none; /* Add underline on hover */
+  color: #ffcc00;
+  text-decoration: none;
 }
 
 .navbar-wrapper a.active {
-  font-weight: bold; /* Highlight active link */
-  border-bottom: 2px solid #ffcc00; /* Add underline for active link */
+  font-weight: bold;
+  border-bottom: 2px solid #ffcc00;
 }
 
 .delete {
   display: inline-block;
-  background-color: #ff4d4f; /* Red background for delete */
-  color: #fff; /* White text color */
+  background-color: #ff4d4f;
+  color: #fff;
   font-size: 14px;
   font-weight: bold;
-  padding: 6px 12px; /* Add some padding */
-  border-radius: 4px; /* Rounded corners */
-  border: none; /* No border */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
-  text-align: center; /* Center the text */
-  text-decoration: none; /* Remove underline */
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  text-decoration: none;
 }
 
 .delete:hover {
-  background-color: #d9363e; /* Darker red on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+  background-color: #d9363e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .delete:active {
-  background-color: #b71c1c; /* Even darker red on active click */
-  transform: scale(0.95); /* Slightly shrink the button */
+  background-color: #b71c1c;
+  transform: scale(0.95);
 }
 
 .update {
   display: inline-block;
-  background-color: #1890ff; /* Blue background for update */
-  color: #fff; /* White text color */
+  background-color: #1890ff;
+  color: #fff;
   font-size: 14px;
   font-weight: bold;
-  padding: 6px 12px; /* Add some padding */
-  border-radius: 4px; /* Rounded corners */
-  border: none; /* No border */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
-  text-align: center; /* Center the text */
-  text-decoration: none; /* Remove underline */
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  text-decoration: none;
 }
 
 .update:hover {
-  background-color: #147ad6; /* Darker blue on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+  background-color: #147ad6;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .update:active {
-  background-color: #0f5ea1; /* Even darker blue on active click */
-  transform: scale(0.95); /* Slightly shrink the button */
+  background-color: #0f5ea1;
+  transform: scale(0.95);
 }
 
-
-
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
 
 @keyframes App-logo-spin {
   from {

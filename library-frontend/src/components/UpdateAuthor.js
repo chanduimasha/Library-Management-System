@@ -20,11 +20,11 @@ function UpdateAuthor() {
     try {
       setLoading(true);
       const response = await fetch(`http://localhost:8000/api/getAuthor/${id}`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const result = await response.json();
       setData(result);
     } catch (error) {
@@ -73,7 +73,9 @@ function UpdateAuthor() {
           <h2 className="text-center mb-4">Update Author</h2>
           <form onSubmit={handleUpdate}>
             <div className="form-group">
-              <label htmlFor="name" className="form-label">Name</label>
+              <label htmlFor="name" className="form-label">
+                Name
+              </label>
               <input
                 type="text"
                 id="name"

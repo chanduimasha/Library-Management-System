@@ -39,58 +39,8 @@ class AuthorController extends Controller
         return $author;
     }
 
-//     public function updateAuthor(Request $request, $id)
-// {
-//     $author = Author::find($id);
-//     if ($author) {
-//         $author->name = $request->name;
-//         $author->save();
-//         return response()->json(['success' => true, 'message' => 'Author updated successfully']);
-//     }
-//     return response()->json(['success' => false, 'message' => 'Author not found']);
-// }
-
     function searchAuthor($key) {
         return Author::where('name', 'LIKE', "%$key%")->get();
     }
 
-
-    // public function index()
-    // {
-    //     $authors = Author::all();
-    //     return response()->json($authors);
-    // }
-
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'name' => 'required|string',
-    //         'biography' => 'nullable|string',
-    //     ]);
-
-    //     $author = Author::create($validated);
-
-    //     return response()->json($author, 201);
-    // }
-
-    // public function update(Request $request, $id)
-    // {
-    //     $author = Author::findOrFail($id);
-    //     $validated = $request->validate([
-    //         'name' => 'required|string',
-    //         'biography' => 'nullable|string',
-    //     ]);
-
-    //     $author->update($validated);
-
-    //     return response()->json($author, 200);
-    // }
-
-    // public function destroy($id)
-    // {
-    //     $author = Author::findOrFail($id);
-    //     $author->delete();
-
-    //     return response()->json(null, 204);
-    // }
 }

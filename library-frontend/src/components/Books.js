@@ -99,7 +99,25 @@ function RecordList() {
     <div>
       <Header />
       <div className="container my-4">
-        <h1 className="text-center text-dark mb-4">Book List</h1>
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <h1 className="text-dark">Book List</h1>
+          <div>
+            <Link to="/add">
+              <Button
+                variant="dark"
+                size="sm"
+                style={{
+                  padding: "8px 100px",
+                  fontSize: "15px",
+                  borderRadius: "5px",
+                }}
+              >
+                Add New Book
+              </Button>
+            </Link>
+          </div>
+        </div>
+
         <div className="col-sm-12">
           <Table striped bordered hover responsive className="shadow-lg">
             <thead className="thead-dark">
@@ -156,22 +174,8 @@ function RecordList() {
               ))}
             </tbody>
           </Table>
-        </div><br/>
-        <div>
-          <Link to="/add">
-            <Button
-              variant="dark"
-              size="sm"
-              style={{
-                padding: "8px 100px",
-                fontSize: "15px",
-                borderRadius: "5px",
-              }}
-            >
-              Add New Book
-            </Button>
-          </Link>
         </div>
+        <br />
       </div>
 
       {/* Confirmation Modal */}

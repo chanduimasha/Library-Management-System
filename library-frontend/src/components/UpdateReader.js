@@ -76,7 +76,7 @@ function UpdateReader() {
 
       const result = await response.json();
       alert("Reader updated successfully!");
-      navigate("/reader"); // Redirect to reader list
+      navigate("/reader");
     } catch (error) {
       console.error("Error updating reader:", error);
       alert("Failed to update reader. Please try again.");
@@ -109,9 +109,7 @@ function UpdateReader() {
             <div className="mb-3">
               <select
                 value={data.book_id || ""}
-                onChange={(e) =>
-                  setData({ ...data, book_id: e.target.value })
-                }
+                onChange={(e) => setData({ ...data, book_id: e.target.value })}
                 className="form-control form-input"
                 required
               >

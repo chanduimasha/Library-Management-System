@@ -11,17 +11,4 @@ class Author extends Model
 
     protected $primaryKey = 'author_id';
 
-
-//     public function books()
-// {
-//     return $this->belongsToMany(Book::class, 'book_author');
-// }
-
-
-    // protected $fillable = ['name', 'biography'];
-
-    // public function books()
-    // {
-    //     return $this->hasMany(Book::class);
-    // }
 }

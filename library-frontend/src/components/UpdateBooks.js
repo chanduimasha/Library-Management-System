@@ -117,7 +117,9 @@ function UpdateBooks() {
               <label className="form-label">Author</label>
               <Form.Select
                 value={data.author_id || ""}
-                onChange={(e) => setData({ ...data, author_id: e.target.value })}
+                onChange={(e) =>
+                  setData({ ...data, author_id: e.target.value })
+                }
                 className="form-control form-input"
                 required
               >
@@ -134,13 +136,18 @@ function UpdateBooks() {
               <label className="form-label">Category</label>
               <Form.Select
                 value={data.category_id || ""}
-                onChange={(e) => setData({ ...data, category_id: e.target.value })}
+                onChange={(e) =>
+                  setData({ ...data, category_id: e.target.value })
+                }
                 className="form-control form-input"
                 required
               >
                 <option value="">Select Category</option>
                 {categories.map((category) => (
-                  <option key={category.category_id} value={category.category_id}>
+                  <option
+                    key={category.category_id}
+                    value={category.category_id}
+                  >
                     {category.name}
                   </option>
                 ))}
@@ -151,7 +158,9 @@ function UpdateBooks() {
               <label className="form-label">Description</label>
               <textarea
                 value={data.description || ""}
-                onChange={(e) => setData({ ...data, description: e.target.value })}
+                onChange={(e) =>
+                  setData({ ...data, description: e.target.value })
+                }
                 placeholder="Enter description"
                 className="form-control form-input"
                 rows="3"
@@ -172,7 +181,10 @@ function UpdateBooks() {
             </div>
 
             <div className="d-flex justify-content-center mt-4">
-              <button type="submit" className="btn btn-primary btn-lg update-btn">
+              <button
+                type="submit"
+                className="btn btn-primary btn-lg update-btn"
+              >
                 Update Book
               </button>
             </div>

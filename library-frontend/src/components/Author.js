@@ -10,39 +10,27 @@ function Author() {
   const [show, setShow] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
-  // async function addAuthor() {
-  //   const formData = new FormData();
-  //   formData.append("name", name);
-
-  //   let result = await fetch("http://localhost:8000/api/addAuthor", {
-  //     method: "POST",
-  //     body: formData,
-  //   });
-  //   alert("Data has been saved successfully");
-  // }
-
   async function addAuthor() {
     const formData = new FormData();
     formData.append("name", name);
-  
+
     let response = await fetch("http://localhost:8000/api/addAuthor", {
       method: "POST",
       body: formData,
     });
-  
+
     if (response.ok) {
       setName("");
       alert("Data has been saved successfully");
       // Fetch updated list of authors
-      const updatedList = await fetch("http://localhost:8000/api/listAuthors").then((res) =>
-        res.json()
-      );
+      const updatedList = await fetch(
+        "http://localhost:8000/api/listAuthors"
+      ).then((res) => res.json());
       setData(updatedList);
     } else {
       alert("Failed to add author");
     }
   }
-  
 
   useEffect(() => {
     async function fetchData() {
@@ -52,11 +40,6 @@ function Author() {
     }
     fetchData();
   }, []);
-
-  function deleteAction(author_id) {
-    setDeleteId(author_id);
-    setShow(true);
-  }
 
   function handleDelete() {
     if (deleteId !== null) {
@@ -78,9 +61,6 @@ function Author() {
         <div className="card shadow-lg p-4 rounded">
           <h2 className="text-center mb-4">Add New Author</h2>
           <div className="form-group">
-            {/* <label htmlFor="name" className="form-label">
-              Name
-            </label> */}
             <input
               type="text"
               id="name"
@@ -110,7 +90,6 @@ function Author() {
               <tr>
                 <th>Id</th>
                 <th>Name</th>
-                {/* <th>Delete</th> */}
                 <th>Update</th>
               </tr>
             </thead>
@@ -119,21 +98,6 @@ function Author() {
                 <tr key={item.author_id}>
                   <td>{item.author_id}</td>
                   <td>{item.name}</td>
-                  {/* <td>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      style={{
-                        padding: "5px 10px",
-                        fontSize: "15px",
-                        borderRadius: "5px",
-                      }}
-                      onClick={() => deleteAction(item.author_id)}
-                    >
-                      Delete
-                    </Button>
-                  </td> */}
-
                   <td>
                     <Link to={"/updateAuthor/" + item.author_id}>
                       <Button
